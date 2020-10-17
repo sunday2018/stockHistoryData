@@ -36,14 +36,15 @@ class downloadHistoryStock(object):
 
 	def download(self, start_date, end_date):
 		download_url = "http://quotes.money.163.com/service/chddata.html?code=0" + self.code + "&start=" + start_date + "&end=" + end_date + "&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
+		print('download_url:s%',download_url)
 		data = requests.get(download_url)
 		f = open(self.code + '.csv', 'wb')
-		
+
 		for chunk in data.iter_content(chunk_size=10000):
+			print(chunk)
 			if chunk:
 				f.write(chunk)
 			# print('指数---',self.code,' histroy data is download...')
-		workbook.close()
 
 
 	def run(self):
@@ -59,6 +60,6 @@ class downloadHistoryStock(object):
 
 
 if __name__ == '__main__':
-	code = '000300'
+	code = '399001'
 	download = downloadHistoryStock(code)
 	download.run()
